@@ -31,13 +31,16 @@ describe('Testing Token Balances', () => {
   it('Token Balance with Signature and Metadata', async () => {
     const balance = await getTokenBalanceAtSignatureWithMetadata(connection, address, signature);
     assert.equal('Raydium', balance.tokenMetadata.name);
+    assert.equal('4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R', balance.mint.toBase58());
   });
   it('Token Balance with Blocktime and Metadata', async () => {
     const balance = await getTokenBalanceAtBlocktimeWithMetadata(connection, address, 1629194194);
     assert.equal('Raydium', balance.tokenMetadata.name);
+    assert.equal('4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R', balance.mint.toBase58());
   });
   it('Token Balance with Slot and Metadata', async () => {
     const balance = await getTokenBalanceAtSlotWithMetadata(connection, address, 92071481);
     assert.equal('Raydium', balance.tokenMetadata.name);
+    assert.equal('4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R', balance.mint.toBase58());
   });
 });

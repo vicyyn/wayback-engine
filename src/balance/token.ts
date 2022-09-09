@@ -92,7 +92,7 @@ async function getTokenBalanceAtSignatureWithMetadata(
   const tokenAccountState = await getTokenBalanceAtSignature(connection, address, signature);
   const mint = await getTokenAccountMint(connection, address);
   const tokenMetadata = await fetchMint(mint);
-  return { ...tokenAccountState, tokenMetadata };
+  return { ...tokenAccountState, tokenMetadata, mint };
 }
 
 /**
@@ -110,7 +110,7 @@ async function getTokenBalanceAtSlotWithMetadata(
   const tokenAccountState = await getTokenBalanceAtSlot(connection, address, slot);
   const mint = await getTokenAccountMint(connection, address);
   const tokenMetadata = await fetchMint(mint);
-  return { ...tokenAccountState, tokenMetadata };
+  return { ...tokenAccountState, tokenMetadata, mint };
 }
 
 /**
@@ -128,7 +128,7 @@ async function getTokenBalanceAtBlocktimeWithMetadata(
   const tokenAccountState = await getTokenBalanceAtBlocktime(connection, address, blocktime);
   const mint = await getTokenAccountMint(connection, address);
   const tokenMetadata = await fetchMint(mint);
-  return { ...tokenAccountState, tokenMetadata };
+  return { ...tokenAccountState, tokenMetadata, mint };
 }
 
 export {
