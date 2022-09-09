@@ -1,7 +1,13 @@
 import { assert } from 'chai';
 import { getBalancesAtSignature } from '../src/';
 import { clusterApiUrl, Connection, PublicKey } from '@solana/web3.js';
-import { getBalancesAtBlocktime, getBalancesAtSlot } from '../src/balance/multiple';
+import {
+  getBalancesAtBlocktime,
+  getBalancesAtBlocktimeWithMetadata,
+  getBalancesAtSignatureWithMetadata,
+  getBalancesAtSlot,
+  getBalancesAtSlotWithMetadata,
+} from '../src/balance/multiple';
 
 describe('Testing Balances', () => {
   const address = new PublicKey('5xYwKrT5a5n4GXhXQqDtQabyadR7sPrBHHbjqbdtb4nz');
@@ -18,6 +24,18 @@ describe('Testing Balances', () => {
   });
   it('User Balances with Slot', async () => {
     const accountState = await getBalancesAtSlot(connection, address, 74396594);
+    assert.equal(8, accountState.tokenAccounts.length);
+  });
+  it('User Balances with Signature and Metadata', async () => {
+    const accountState = await getBalancesAtSignatureWithMetadata(connection, address, signature);
+    assert.equal(8, accountState.tokenAccounts.length);
+  });
+  it('User Balances with Blocktime and Metadata', async () => {
+    const accountState = await getBalancesAtBlocktimeWithMetadata(connection, address, 1618853134);
+    assert.equal(8, accountState.tokenAccounts.length);
+  });
+  it('User Balances with Slot and Metadata', async () => {
+    const accountState = await getBalancesAtSlotWithMetadata(connection, address, 74396594);
     assert.equal(8, accountState.tokenAccounts.length);
   });
 });
