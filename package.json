@@ -1,6 +1,6 @@
 {
   "name": "wayback-engine",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Solana Wayback Engine",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -35,5 +35,9 @@
     "Solana",
     "Wayback"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vicyyn/wayback-engine.git"
+  },
   "author": "Vicyyn"
 }
