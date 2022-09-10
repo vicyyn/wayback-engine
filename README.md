@@ -18,13 +18,42 @@ Built on @solana ☀️
 
 ## Note
 - **Wayback Engine is in active development, so all APIs are subject to change.**
-- **This code is unaudited. Use at your own risk.**
 
-## How To Run Locally
+## Usage
+User Balance (Signature/Slot/Blocktime)
 ```
-npm i
-npm run test
+const balance = await getBalanceAtSignature(connection, address, signature);
+const balance = await getBalanceAtBlocktime(connection, address, 1644487905);
+const balance = await getBalanceAtSlot(connection, address, 120188217);
 ```
+
+Token Balance (Signature/Slot/Blocktime) and With/Without Token Metadata
+```
+// Token Balance with Signature
+const balance = await getTokenBalanceAtSignature(connection, address, signature);
+
+// Token Balance with Slot and Metadata
+const balance = await getTokenBalanceAtSlotWithMetadata(connection, address, 92071481);
+```
+
+All Balances
+```
+const accountState = await getBalancesAtSignature(connection, address, signature);
+```
+
+## Features
+|                         | Balance | Token Balance | All Balances | Data Account |
+|-------------------------|:---------:|:---------------:|:--------------:|:--------------:|
+| Signature               |    ✅    |       ✅       |       ✅      |       ❌      |
+| Blocktime               |    ✅    |       ✅       |       ✅      |       ❌      |
+| SLot                    |    ✅    |       ✅       |       ✅      |       ❌      |
+| Signature with Metadata |         |       ✅       |       ✅      |              |
+| Blocktime with Metadata |         |       ✅       |       ✅      |              |
+| Slot with Metadata      |         |       ✅       |       ✅      |              |
+
+## Todo
+Get raw data at certain signature (Data account)
+https://bpf.wtf/sol-state-history/
 
 ## License
 Wayback Engine is licensed under Apache 2.0.
