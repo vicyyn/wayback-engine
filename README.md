@@ -46,7 +46,7 @@ const accountState = await getBalancesAtSignature(connection, address, signature
 |-------------------------|:---------:|:---------------:|:--------------:|:--------------:|
 | Signature               |    ✅    |       ✅       |       ✅      |       ❌      |
 | Blocktime               |    ✅    |       ✅       |       ✅      |       ❌      |
-| SLot                    |    ✅    |       ✅       |       ✅      |       ❌      |
+| Slot                    |    ✅    |       ✅       |       ✅      |       ❌      |
 | Signature with Metadata |         |       ✅       |       ✅      |              |
 | Blocktime with Metadata |         |       ✅       |       ✅      |              |
 | Slot with Metadata      |         |       ✅       |       ✅      |              |
