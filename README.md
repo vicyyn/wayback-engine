@@ -19,9 +19,17 @@ Built on @solana ☀️
 ## Note
 - **Wayback Engine is in active development, so all APIs are subject to change.**
 
+## Installation 
+
+```
+npm i wayback-engine
+```
+
 ## Usage
 User Balance (Signature/Slot/Blocktime)
 ```
+import { getBalanceAtSignature, ... } from 'wayback-engine'
+
 const balance = await getBalanceAtSignature(connection, address, signature);
 const balance = await getBalanceAtBlocktime(connection, address, 1644487905);
 const balance = await getBalanceAtSlot(connection, address, 120188217);
