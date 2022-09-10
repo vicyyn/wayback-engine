@@ -29,5 +29,5 @@ npm run test
 ## License
 Wayback Engine is licensed under Apache 2.0.
 
-Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in Sollectify by you, as defined in the Apache-2.0 license, shall be licensed as above, without any additional terms or conditions.
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in Wayback Engine by you, as defined in the Apache-2.0 license, shall be licensed as above, without any additional terms or conditions.
 
