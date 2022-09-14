@@ -40,6 +40,61 @@ async function getSignaturesForAddress(
 }
 
 /**
+ * @param connection A connection to a fullnode JSON RPC endpoint
+ * @param address Address of the Signatures to fetch
+ * @param blocktime Blocktime of the Signature to fetch
+ */
+async function getSignatureAtBlocktime(
+  connection: Connection,
+  address: PublicKey,
+  blocktime: number,
+): Promise<ConfirmedSignatureInfo> {
+  let signatures = await connection.getSignaturesForAddress(address);
+  while (true) {
+    for (const signature of signatures) {
+      if (!signature.blockTime) continue;
+      if (signature.blockTime <= blocktime) {
+        return signature;
+      }
+    }
+    if (signatures.length < 1000) {
+      break;
+    }
+    signatures = await connection.getSignaturesForAddress(address, {
+      before: signatures[signatures.length - 1].signature,
+    });
+  }
+  throw 'error';
+}
+
+/**
+ * @param connection A connection to a fullnode JSON RPC endpoint
+ * @param address Address of the Signatures to fetch
+ * @param slot Slot of the Signature to fetch
+ */
+async function getSignatureAtSlot(
+  connection: Connection,
+  address: PublicKey,
+  slot: number,
+): Promise<ConfirmedSignatureInfo> {
+  let signatures = await connection.getSignaturesForAddress(address);
+  while (true) {
+    for (const signature of signatures) {
+      if (signature.slot <= slot) {
+        return signature;
+      }
+    }
+    if (signatures.length < 1000) {
+      break;
+    }
+    signatures = await connection.getSignaturesForAddress(address, {
+      before: signatures[signatures.length - 1].signature,
+    });
+  }
+  throw 'error';
+}
+
+/**
  * @param address Address of the Mint Metadata to fetch
  */
 async function fetchMint(address: PublicKey): Promise<TokenMetadata> {
@@ -64,4 +119,11 @@ async function getTokenAccountMint(connection: Connection, address: PublicKey): 
   return mint;
 }
 
-export { getSignaturesForAddress, fetchMint, TokenMetadata, getTokenAccountMint };
+export {
+  getSignaturesForAddress,
+  fetchMint,
+  TokenMetadata,
+  getTokenAccountMint,
+  getSignatureAtSlot,
+  getSignatureAtBlocktime,
+};

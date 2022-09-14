@@ -18,6 +18,7 @@ import {
 import { getSignaturesForAddress, fetchMint, getTokenAccountMint, TokenMetadata } from './utils';
 import TokenAccountState from './states/TokenAccountState';
 import AccountState from './states/AccountState';
+import { getAccount } from './data/data';
 
 export {
   getTokenBalanceAtSignature,
@@ -41,4 +42,5 @@ export {
   TokenMetadata,
   TokenAccountState,
   AccountState,
+  getAccount,
 };

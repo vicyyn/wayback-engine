@@ -1,4 +1,5 @@
 import { PublicKey, Connection } from '@solana/web3.js';
+import { getSignatureAtBlocktime, getSignatureAtSlot } from '../utils';
 
 /**
  * Get Sol Balance for an Address at Signature
@@ -34,14 +35,8 @@ async function getBalanceAtBlocktime(
   address: PublicKey,
   blocktime: number,
 ): Promise<number> {
-  const signatures = await connection.getSignaturesForAddress(address);
-  for (const signature of signatures) {
-    if (!signature.blockTime) continue;
-    if (signature.blockTime <= blocktime) {
-      return await getBalanceAtSignature(connection, address, signature.signature);
-    }
-  }
-  throw 'Error';
+  const signature = await getSignatureAtBlocktime(connection, address, blocktime);
+  return await getBalanceAtSignature(connection, address, signature.signature);
 }
 
 /**
@@ -56,13 +51,8 @@ async function getBalanceAtSlot(
   address: PublicKey,
   slot: number,
 ): Promise<number> {
-  const signatures = await connection.getSignaturesForAddress(address);
-  for (const signature of signatures) {
-    if (signature.slot <= slot) {
-      return await getBalanceAtSignature(connection, address, signature.signature);
-    }
-  }
-  throw 'Error';
+  const signature = await getSignatureAtSlot(connection, address, slot);
+  return await getBalanceAtSignature(connection, address, signature.signature);
 }
 
 export { getBalanceAtSignature, getBalanceAtSlot, getBalanceAtBlocktime };

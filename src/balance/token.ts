@@ -1,6 +1,11 @@
 import { PublicKey, Connection } from '@solana/web3.js';
 import TokenAccountState from '../states/TokenAccountState';
-import { fetchMint, getTokenAccountMint } from '../utils';
+import {
+  fetchMint,
+  getSignatureAtBlocktime,
+  getSignatureAtSlot,
+  getTokenAccountMint,
+} from '../utils';
 
 /**
  * Get Token Account Balance for an Address at Signature
@@ -46,14 +51,8 @@ async function getTokenBalanceAtBlocktime(
   address: PublicKey,
   blocktime: number,
 ): Promise<TokenAccountState> {
-  const signatures = await connection.getSignaturesForAddress(address);
-  for (const signature of signatures) {
-    if (!signature.blockTime) continue;
-    if (signature.blockTime <= blocktime) {
-      return await getTokenBalanceAtSignature(connection, address, signature.signature);
-    }
-  }
-  throw 'Error';
+  const signature = await getSignatureAtBlocktime(connection, address, blocktime);
+  return await getTokenBalanceAtSignature(connection, address, signature.signature);
 }
 
 /**
@@ -68,13 +67,8 @@ async function getTokenBalanceAtSlot(
   address: PublicKey,
   slot: number,
 ): Promise<TokenAccountState> {
-  const signatures = await connection.getSignaturesForAddress(address);
-  for (const signature of signatures) {
-    if (signature.slot <= slot) {
-      return await getTokenBalanceAtSignature(connection, address, signature.signature);
-    }
-  }
-  throw 'Error';
+  const signature = await getSignatureAtSlot(connection, address, slot);
+  return await getTokenBalanceAtSignature(connection, address, signature.signature);
 }
 
 /**
